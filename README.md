@@ -36,3 +36,4 @@ destiny-chapel/
 ## Google Sheets Integration (next step)
 - Ask your developer or Claude to add a Google Apps Script webhook
 - Every form submission will auto-log to a spreadsheet
+# destiny-chapel
