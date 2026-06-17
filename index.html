@@ -1,1053 +1,713 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Destiny Chapel — Visitor Card</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#C0272D"/>
+<title>Destiny Chapel — Visitor Card</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--red:#C0272D;--dark:#1a0505;--gold:#d4a843;}
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── PAGE ── */
+body,html{font-family:'Lato',sans-serif;min-height:100vh;overflow-x:hidden;}
 
-    :root {
-      --red:       #C0272D;
-      --red-dark:  #8b1a1e;
-      --red-deep:  #3d0608;
-      --red-light: #f9ecec;
-      --red-mid:   #e8c4c4;
-      --white:     #ffffff;
-      --off:       #fdf8f8;
-      --text:      #1a0505;
-      --muted:     #888;
-      --border:    #e8d4d4;
-    }
+/* ── VIDEO BG ── */
+.video-bg{
+  position:fixed;inset:0;z-index:0;
+  background:var(--dark);
+  overflow:hidden;
+}
+.video-bg video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:0.45;
+}
+.video-tint{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(120,10,14,0.82) 0%,rgba(20,3,3,0.88) 100%);
+}
 
-    html { scroll-behavior: smooth; }
+/* ── LAYOUT ── */
+.page{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;
+  padding:2.5rem 1rem 4rem;
+}
 
-    body {
-      font-family: 'Lato', sans-serif;
-      background: var(--red-deep);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+/* ── STEP DOTS ── */
+.step-dots{display:flex;gap:10px;margin-bottom:1.5rem;}
+.dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.25);transition:all .35s;}
+.dot.active{background:#fff;transform:scale(1.4);}
 
-    /* ═══════════════════════════════════════
-       VIDEO BACKGROUND
-    ═══════════════════════════════════════ */
-    .bg-video-wrap {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
+/* ── CARD ── */
+.card{
+  background:#fff;
+  width:100%;max-width:700px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.06);
+  animation:rise .7s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes rise{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
 
-    .bg-video-wrap video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1.2s ease;
-    }
+/* ── HERO ── */
+.hero{
+  position:relative;
+  height:210px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#8B0000 0%,#C0272D 50%,#7a1010 100%);
+}
+.hero-particles{position:absolute;inset:0;overflow:hidden;}
+.hero-particles span{
+  position:absolute;
+  width:3px;height:3px;
+  background:rgba(255,255,255,0.35);
+  border-radius:50%;
+  animation:float linear infinite;
+}
+@keyframes float{
+  0%{transform:translateY(100%) scale(0);opacity:0;}
+  10%{opacity:1;}
+  90%{opacity:.6;}
+  100%{transform:translateY(-20px) scale(1.5);opacity:0;}
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,0.05) 0%,rgba(0,0,0,0.3) 100%);
+}
+.hero-content{
+  position:relative;z-index:2;
+  height:100%;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+}
+.logo-row{display:flex;align-items:center;gap:16px;}
+.logo-box{
+  width:58px;height:58px;
+  background:#fff;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.35);
+  flex-shrink:0;
+}
+.church-name h1{
+  font-family:'Playfair Display',serif;
+  color:#fff;font-size:26px;line-height:1.1;
+}
+.church-name h1 em{font-style:normal;font-weight:300;}
+.church-name p{
+  font-size:9px;letter-spacing:2.5px;
+  color:rgba(255,255,255,0.7);
+  text-transform:uppercase;margin-top:5px;
+}
+.visitor-badge{
+  background:rgba(255,255,255,0.15);
+  border:1.5px solid rgba(255,255,255,0.4);
+  border-radius:30px;
+  padding:8px 18px;
+  color:#fff;font-size:11px;
+  letter-spacing:1.5px;text-transform:uppercase;font-weight:700;
+  white-space:nowrap;
+  backdrop-filter:blur(6px);
+}
 
-    .bg-video-wrap video.loaded { opacity: 1; }
+/* ── PROGRESS ── */
+.progress-track{height:4px;background:#f0dada;}
+.progress-fill{height:4px;background:var(--red);transition:width .5s ease;border-radius:0 2px 2px 0;}
 
-    /* Maroon tint overlay — keeps brand colour alive over any video */
-    .bg-video-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(
-          160deg,
-          rgba(61, 6, 8, 0.623) 0%,
-          rgba(139, 26, 30, 0.534) 50%,
-          rgba(30, 2, 3, 0.63) 100%
-        );
-    }
+/* ── SCRIPTURE ── */
+.scripture{
+  background:#fdf6f6;
+  border-left:4px solid var(--red);
+  padding:13px 20px;
+  font-style:italic;font-size:12.5px;
+  color:#7a3030;line-height:1.7;
+}
+.scripture b{font-style:normal;color:var(--red);font-size:11.5px;display:block;margin-top:5px;font-weight:700;}
 
-    /* Fallback animated gradient when no video */
-    .bg-fallback {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 20% 30%, rgba(192,39,45,0.6) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 70%, rgba(139,26,30,0.5) 0%, transparent 60%),
-        #1a0505;
-      animation: pulse-bg 8s ease-in-out infinite alternate;
-    }
-    @keyframes pulse-bg {
-      from { opacity: 1; }
-      to   { opacity: 0.7; }
-    }
+/* ── BODY ── */
+.body{padding:1.8rem 2rem 2.2rem;}
 
-    /* ═══════════════════════════════════════
-       PAGE LAYOUT
-    ═══════════════════════════════════════ */
-    .page {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2.5rem 1rem 4rem;
-    }
+.sec-title{
+  font-size:10.5px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--red);font-weight:700;
+  margin-bottom:1.3rem;
+  display:flex;align-items:center;gap:8px;
+}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(to right,#C0272D44,transparent);}
 
-    /* Top tagline above card */
-    .page-eyebrow {
-      text-align: center;
-      margin-bottom: 1.8rem;
-      animation: fadeDown 0.8s ease both;
-    }
-    .page-eyebrow p {
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      font-weight: 300;
-    }
-    .page-eyebrow h2 {
-      font-family: 'Playfair Display', serif;
-      color: rgba(255,255,255,0.9);
-      font-size: clamp(20px, 4vw, 28px);
-      font-weight: 400;
-      margin-top: 6px;
-    }
-    .page-eyebrow h2 em {
-      font-style: normal;
-      color: #f4a0a3;
-    }
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px;}
+.full{grid-column:1/-1;}
 
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#999;}
+.req{color:var(--red);margin-left:2px;}
 
-    /* ═══════════════════════════════════════
-       CARD
-    ═══════════════════════════════════════ */
-    .card {
-      background: var(--white);
-      width: 100%;
-      max-width: 680px;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow:
-        0 40px 100px rgba(0,0,0,0.6),
-        0 0 0 1px rgba(255,255,255,0.08);
-      animation: cardRise 0.9s cubic-bezier(.22,1,.36,1) both 0.2s;
-    }
-    @keyframes cardRise {
-      from { opacity: 0; transform: translateY(40px) scale(0.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
+.field input,.field select,.field textarea{
+  border:none;border-bottom:2px solid #ead8d8;
+  padding:10px 4px;font-size:15px;
+  font-family:'Lato',sans-serif;color:#222;
+  background:transparent;outline:none;width:100%;
+  transition:border-color .3s;border-radius:0;
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:var(--red);}
+.field input.err{border-bottom-color:#e53e3e;}
+.err-msg{font-size:11px;color:#e53e3e;margin-top:2px;display:none;}
+.err-msg.show{display:block;}
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      height: 190px;
-      overflow: hidden;
-      background: var(--red-dark);
-    }
+.field textarea{
+  border:1.5px solid #ead8d8;border-radius:10px;
+  padding:12px;resize:none;height:85px;font-size:14px;
+}
+.field textarea:focus{border-color:var(--red);}
+.field textarea.err{border-color:#e53e3e;}
+.field select{cursor:pointer;appearance:none;}
 
-    /* Church scene SVG decoration */
-    .hero-scene {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 80px;
-      opacity: .12;
-      pointer-events: none;
-    }
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.how-card{
+  border:1.5px solid #ead8d8;border-radius:12px;
+  padding:12px 8px;text-align:center;cursor:pointer;
+  transition:all .25s;user-select:none;
+}
+.how-card:hover{border-color:var(--red);background:#fff8f8;}
+.how-card.sel{border-color:var(--red);background:#fff0f0;}
+.how-card i{font-size:20px;color:var(--red);display:block;margin-bottom:5px;}
+.how-card span{font-size:11px;color:#555;}
 
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(145deg, rgba(192,39,45,0.92) 0%, rgba(80,10,12,0.85) 100%);
-    }
+.radio-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+.rlabel{
+  display:flex;align-items:center;gap:7px;cursor:pointer;
+  font-size:13.5px;color:#444;padding:8px 14px;
+  border:1.5px solid #ead8d8;border-radius:30px;
+  transition:all .25s;user-select:none;
+}
+.rlabel:has(input:checked){border-color:var(--red);background:#fff0f0;color:var(--red);font-weight:700;}
+.rlabel input{display:none;}
 
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      gap: 1rem;
-    }
+.divider{height:1px;background:#f2e8e8;margin:1.6rem 0;}
 
-    .logo-row { display: flex; align-items: center; gap: 14px; }
+/* ── BUTTONS ── */
+.btn-row{display:flex;gap:12px;margin-top:1.6rem;}
+.btn{
+  flex:1;padding:15px;border:none;border-radius:12px;
+  font-size:14px;font-weight:700;font-family:'Lato',sans-serif;
+  letter-spacing:.8px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:all .2s;
+}
+.btn-back{background:#f0e8e8;color:var(--red);flex:0 0 52px;}
+.btn-back:hover{background:#ead8d8;}
+.btn-primary{background:var(--red);color:#fff;}
+.btn-primary:hover{background:#a01f24;}
+.btn:active{transform:scale(0.98);}
+.btn-wa{
+  width:100%;padding:15px;background:#25D366;color:#fff;
+  border:none;border-radius:12px;font-size:15px;font-weight:700;
+  font-family:'Lato',sans-serif;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  transition:background .2s;margin-top:1rem;
+}
+.btn-wa:hover{background:#1ebe5d;}
 
-    .logo-box {
-      width: 56px; height: 56px;
-      background: #fff;
-      border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px;
-      flex-shrink: 0;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-    }
+/* ── STATUS TOAST ── */
+.toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);
+  background:#1a0505;color:#fff;
+  padding:12px 24px;border-radius:30px;
+  font-size:13px;font-weight:700;
+  display:flex;align-items:center;gap:8px;
+  opacity:0;transition:all .4s;z-index:999;
+  white-space:nowrap;
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 8px 32px rgba(0,0,0,0.4);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.success{border-color:rgba(37,211,102,0.4);}
+.toast.error{border-color:rgba(192,39,45,0.5);}
+.toast i{font-size:16px;}
 
-    /* If you have a real logo image, swap the emoji above for:
-       <img src="assets/logo.png" style="width:36px;height:36px;object-fit:contain;" /> */
+/* ── SAVING INDICATOR ── */
+.saving-badge{
+  display:none;
+  align-items:center;gap:6px;
+  font-size:12px;color:#888;
+  margin-top:10px;justify-content:center;
+}
+.saving-badge.show{display:flex;}
+.spin{animation:spin .8s linear infinite;font-size:14px;color:var(--red);}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-    .church-name h1 {
-      font-family: 'Playfair Display', serif;
-      color: #fff;
-      font-size: clamp(20px, 4vw, 26px);
-      line-height: 1.1;
-      font-weight: 700;
-    }
-    .church-name h1 em { font-style: normal; font-weight: 300; }
-    .church-name p {
-      font-size: 8.5px;
-      letter-spacing: 2.5px;
-      color: rgba(255,255,255,0.7);
-      text-transform: uppercase;
-      margin-top: 5px;
-    }
+/* ── SUCCESS ── */
+.success{display:none;text-align:center;padding:2.5rem 2rem;animation:rise .5s ease both;}
+.success-ring{
+  width:84px;height:84px;border-radius:50%;
+  background:#fff0f0;border:3px solid var(--red);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 1.4rem;font-size:36px;
+}
+.success h2{font-family:'Playfair Display',serif;color:var(--red);font-size:22px;margin-bottom:8px;}
+.success p{color:#888;font-size:13.5px;line-height:1.8;max-width:380px;margin:0 auto;}
 
-    .visitor-badge {
-      background: rgba(255,255,255,0.14);
-      border: 1.5px solid rgba(255,255,255,0.35);
-      border-radius: 30px;
-      padding: 7px 18px;
-      color: #fff;
-      font-size: 10.5px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      font-weight: 700;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
+/* preview box */
+.preview-box{
+  background:#f9f5f5;border-radius:14px;
+  padding:1.2rem 1.4rem;margin:1.4rem 0;
+  text-align:left;font-size:13px;color:#444;
+  line-height:2;border:1px solid #f0dada;
+}
 
-    /* ── PROGRESS ── */
-    .progress-track { height: 4px; background: #f0dede; }
-    .progress-fill {
-      height: 4px;
-      background: var(--red);
-      transition: width 0.5s ease;
-      border-radius: 0 2px 2px 0;
-    }
+/* ── FOOTER ── */
+.footer{
+  background:#0d0303;padding:1.3rem 1.8rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+}
+.ft-contacts{display:flex;gap:16px;flex-wrap:wrap;}
+.ft-item{color:#aaa;font-size:11.5px;display:flex;align-items:center;gap:5px;}
+.ft-item i{color:var(--red);font-size:13px;}
+.ft-socials{display:flex;gap:10px;}
+.ft-socials a{
+  color:#aaa;font-size:13px;width:30px;height:30px;
+  border:1px solid #333;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;transition:all .25s;
+}
+.ft-socials a:hover{border-color:var(--red);color:var(--red);}
 
-    .step-dots {
-      display: flex; align-items: center; justify-content: center;
-      gap: 10px; padding: 14px 0 0;
-    }
-    .dot {
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: #e0cccc;
-      transition: all 0.35s;
-    }
-    .dot.active { background: var(--red); transform: scale(1.45); }
-
-    /* ── SCRIPTURE ── */
-    .scripture {
-      background: var(--red-light);
-      border-left: 4px solid var(--red);
-      padding: 13px 20px;
-      font-style: italic;
-      font-size: 12.5px;
-      color: #7a3030;
-      line-height: 1.7;
-    }
-    .scripture b {
-      font-style: normal;
-      color: var(--red);
-      font-size: 11.5px;
-      display: block;
-      margin-top: 5px;
-      font-weight: 700;
-    }
-
-    /* ── BODY ── */
-    .body { padding: 1.8rem 2rem 2.2rem; }
-
-    .sec-title {
-      font-size: 10.5px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--red);
-      font-weight: 700;
-      margin-bottom: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .sec-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, rgba(192,39,45,0.3), transparent);
-    }
-
-    /* ── FORM GRID ── */
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; }
-    .full { grid-column: 1 / -1; }
-
-    .field { display: flex; flex-direction: column; gap: 5px; }
-    .field label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .req { color: var(--red); margin-left: 2px; }
-
-    .field input,
-    .field select,
-    .field textarea {
-      border: none;
-      border-bottom: 2px solid var(--border);
-      padding: 10px 4px;
-      font-size: 15px;
-      font-family: 'Lato', sans-serif;
-      color: var(--text);
-      background: transparent;
-      outline: none;
-      width: 100%;
-      transition: border-color 0.3s;
-      border-radius: 0;
-      -webkit-appearance: none;
-    }
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus { border-bottom-color: var(--red); }
-    .field input.err,
-    .field select.err { border-bottom-color: #e53e3e; }
-
-    .field textarea {
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 12px;
-      resize: none;
-      height: 82px;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-    .field textarea:focus { border-color: var(--red); }
-    .field textarea.err { border-color: #e53e3e; }
-
-    .field select { cursor: pointer; }
-
-    .err-msg {
-      font-size: 11px;
-      color: #e53e3e;
-      margin-top: 3px;
-      display: none;
-    }
-    .err-msg.show { display: block; }
-
-    /* ── HOW HEARD ── */
-    .how-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-    .how-card {
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 13px 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.25s;
-      user-select: none;
-    }
-    .how-card:hover { border-color: var(--red); background: #fff5f5; }
-    .how-card.sel   { border-color: var(--red); background: var(--red-light); }
-    .how-card i     { font-size: 21px; color: var(--red); display: block; margin-bottom: 5px; }
-    .how-card span  { font-size: 11px; color: #555; line-height: 1.3; }
-
-    /* ── RADIO ── */
-    .radio-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
-    .rlabel {
-      display: flex; align-items: center; gap: 7px;
-      cursor: pointer;
-      font-size: 13.5px;
-      color: #444;
-      padding: 8px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 30px;
-      transition: all 0.25s;
-      user-select: none;
-    }
-    .rlabel:has(input:checked) {
-      border-color: var(--red);
-      background: var(--red-light);
-      color: var(--red);
-      font-weight: 700;
-    }
-    .rlabel input { display: none; }
-
-    /* ── DIVIDER ── */
-    .divider { height: 1px; background: #f0e4e4; margin: 1.8rem 0; }
-
-    /* ── TAKEAWAY ── */
-    .takeaway-wrap {
-      background: linear-gradient(135deg, #fff8f8, #fff);
-      border: 1.5px solid var(--red-mid);
-      border-radius: 14px;
-      padding: 1.2rem;
-      margin-top: 0.5rem;
-    }
-    .takeaway-wrap .field label { color: var(--red); font-size: 11px; }
-    .takeaway-wrap textarea {
-      height: 100px;
-      border-color: var(--red-mid);
-    }
-    .takeaway-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    /* ── BUTTONS ── */
-    .btn-row { display: flex; gap: 12px; margin-top: 1.8rem; }
-    .btn {
-      flex: 1;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      font-family: 'Lato', sans-serif;
-      letter-spacing: 0.8px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-    .btn:active { transform: scale(0.98); }
-    .btn-back {
-      background: var(--red-light);
-      color: var(--red);
-      flex: 0 0 52px;
-      font-size: 18px;
-    }
-    .btn-back:hover { background: var(--red-mid); }
-    .btn-primary { background: var(--red); color: #fff; }
-    .btn-primary:hover { background: var(--red-dark); }
-
-    .btn-wa {
-      width: 100%;
-      padding: 16px;
-      background: #25D366;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: 'Lato', sans-serif;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      transition: background 0.2s;
-    }
-    .btn-wa:hover { background: #1ebe5d; }
-
-    /* ── SUCCESS SCREEN ── */
-    .success {
-      display: none;
-      text-align: center;
-      padding: 2.5rem 2rem;
-      animation: cardRise 0.5s ease both;
-    }
-    .success-ring {
-      width: 88px; height: 88px;
-      border-radius: 50%;
-      background: var(--red-light);
-      border: 3px solid var(--red);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 38px;
-    }
-    .success h2 {
-      font-family: 'Playfair Display', serif;
-      color: var(--red);
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-    .success > p {
-      color: #888;
-      font-size: 14px;
-      line-height: 1.8;
-      max-width: 380px;
-      margin: 0 auto 1.5rem;
-    }
-
-    /* Preview box */
-    .preview-box {
-      background: var(--off);
-      border: 1px solid var(--red-mid);
-      border-radius: 14px;
-      padding: 1.2rem 1.4rem;
-      text-align: left;
-      font-size: 13px;
-      color: #444;
-      line-height: 2;
-      margin-bottom: 1.4rem;
-    }
-    .preview-box .preview-section {
-      font-size: 10px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--red);
-      font-weight: 700;
-      margin: 10px 0 4px;
-    }
-    .preview-box .preview-section:first-child { margin-top: 0; }
-    .preview-box .prow { display: flex; gap: 8px; }
-    .preview-box .prow .plabel {
-      color: var(--muted);
-      font-size: 12px;
-      min-width: 110px;
-      flex-shrink: 0;
-    }
-    .preview-box .prow .pval {
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 600;
-      word-break: break-word;
-    }
-    .preview-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 10px 0;
-    }
-
-    /* ── FOOTER ── */
-    .card-footer {
-      background: #1a0505;
-      padding: 1.3rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .ft-contacts { display: flex; gap: 16px; flex-wrap: wrap; }
-    .ft-item {
-      color: #aaa;
-      font-size: 11px;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .ft-item i { color: var(--red); font-size: 13px; }
-    .ft-socials { display: flex; gap: 10px; }
-    .ft-socials a {
-      color: #aaa;
-      font-size: 13px;
-      width: 30px; height: 30px;
-      border: 1px solid #444;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      transition: all 0.25s;
-    }
-    .ft-socials a:hover { border-color: var(--red); color: var(--red); }
-
-    /* ═══════════════════════════════════════
-       BELOW CARD — floating note
-    ═══════════════════════════════════════ */
-    .below-card {
-      margin-top: 2rem;
-      text-align: center;
-      animation: fadeDown 1s ease both 0.6s;
-    }
-    .below-card p {
-      color: rgba(255,255,255,0.45);
-      font-size: 12px;
-      letter-spacing: 1px;
-    }
-    .below-card .cross {
-      color: rgba(255,255,255,0.2);
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    /* ═══════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════ */
-    @media (max-width: 520px) {
-      .page { padding: 1.5rem 0.8rem 3rem; }
-      .page-eyebrow { margin-bottom: 1.2rem; }
-      .hero { height: 170px; }
-      .hero-content { padding: 0 1.2rem; }
-      .church-name h1 { font-size: 18px; }
-      .visitor-badge { font-size: 9px; padding: 6px 12px; }
-      .body { padding: 1.3rem 1.2rem 1.6rem; }
-      .grid { grid-template-columns: 1fr; }
-      .full { grid-column: 1; }
-      .how-grid { grid-template-columns: repeat(2, 1fr); }
-      .ft-contacts { flex-direction: column; gap: 6px; }
-      .card-footer { flex-direction: column; align-items: flex-start; }
-      .preview-box .plabel { min-width: 90px; }
-    }
-
-    @media (min-width: 768px) {
-      .hero { height: 210px; }
-      .page { padding: 3rem 1.5rem 5rem; }
-    }
-  </style>
+/* ── RESPONSIVE ── */
+@media(max-width:520px){
+  .page{padding:1.5rem .6rem 3rem;}
+  .hero-content{padding:0 1.2rem;}
+  .visitor-badge{font-size:9px;padding:6px 12px;}
+  .church-name h1{font-size:20px;}
+  .grid{grid-template-columns:1fr;}
+  .full{grid-column:1;}
+  .how-grid{grid-template-columns:1fr 1fr;}
+  .body{padding:1.2rem 1.2rem 1.6rem;}
+  .ft-contacts{flex-direction:column;gap:6px;}
+}
+@media(min-width:640px){
+  .hero{height:225px;}
+  .church-name h1{font-size:28px;}
+}
+</style>
 </head>
 <body>
 
-  <!-- ══ VIDEO BACKGROUND ══ -->
-  <div class="bg-video-wrap">
-    <div class="bg-fallback"></div>
-    <!--
-      DROP YOUR VIDEO FILE INTO THE /video/ FOLDER AND NAME IT: church.mp4
-      The video will autoplay silently on loop behind the card.
-    -->
-    <video
-      id="bgVid"
-      autoplay
-      muted
-      loop
-      playsinline
-      preload="auto"
-      oncanplay="this.classList.add('loaded')"
-    >
-      <source src="video/church.mp4" type="video/mp4" />
-    </video>
+<!-- ══════════════ VIDEO BACKGROUND ══════════════ -->
+<div class="video-bg">
+  <video autoplay muted loop playsinline>
+    <source src="video/church.mp4" type="video/mp4"/>
+  </video>
+  <div class="video-tint"></div>
+</div>
+
+<!-- ══════════════ PAGE ══════════════ -->
+<div class="page">
+
+  <div class="step-dots">
+    <div class="dot active" id="d1"></div>
+    <div class="dot" id="d2"></div>
+    <div class="dot" id="d3"></div>
   </div>
 
-  <!-- ══ PAGE ══ -->
-  <div class="page">
+  <div class="card">
 
-    <div class="page-eyebrow">
-      <p>Welcome to</p>
-      <h2><em>destiny</em>chapel — <span style="font-weight:300">Nairobi</span></h2>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-particles" id="particles"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="logo-row">
+          <div class="logo-box">🔥</div>
+          <div class="church-name">
+            <h1><em>destiny</em>chapel</h1>
+            <p>Activating Dreams to Transform Lives</p>
+          </div>
+        </div>
+        <div class="visitor-badge">Visitor Card</div>
+      </div>
     </div>
 
-    <!-- ══════════ CARD ══════════ -->
-    <div class="card">
+    <!-- PROGRESS -->
+    <div class="progress-track"><div class="progress-fill" id="pf" style="width:33%"></div></div>
 
-      <!-- HERO HEADER -->
-      <div class="hero">
-        <svg class="hero-scene" viewBox="0 0 700 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-          <rect x="0"   y="35" width="700" height="50" fill="#fff"/>
-          <rect x="20"  y="18" width="35" height="55" fill="#fff"/>
-          <rect x="32"  y="8"  width="9"  height="14" fill="#fff"/>
-          <polygon points="36.5,8 36.5,2 41,8" fill="#fff"/>
-          <rect x="70"  y="28" width="55" height="48" fill="#fff"/>
-          <rect x="92"  y="16" width="11" height="16" fill="#fff"/>
-          <rect x="138" y="12" width="28" height="63" fill="#fff"/>
-          <rect x="147" y="2"  width="9"  height="14" fill="#fff"/>
-          <polygon points="151.5,2 151.5,-4 156,2" fill="#fff"/>
-          <rect x="180" y="22" width="48" height="55" fill="#fff"/>
-          <rect x="255" y="8"  width="75" height="68" fill="#fff"/>
-          <rect x="280" y="0"  width="20" height="12" fill="#fff"/>
-          <polygon points="290,0 290,-6 296,0" fill="#fff"/>
-          <rect x="345" y="20" width="50" height="56" fill="#fff"/>
-          <rect x="362" y="12" width="16" height="12" fill="#fff"/>
-          <rect x="408" y="30" width="38" height="46" fill="#fff"/>
-          <rect x="460" y="16" width="65" height="60" fill="#fff"/>
-          <rect x="485" y="6"  width="14" height="14" fill="#fff"/>
-          <rect x="538" y="24" width="48" height="52" fill="#fff"/>
-          <rect x="600" y="32" width="42" height="44" fill="#fff"/>
-          <rect x="618" y="20" width="9"  height="16" fill="#fff"/>
-        </svg>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <div class="logo-row">
-           <img 
-    src="assets/images/logo.png"style="width: 90px; height: 90px; object-fit: contain; background-color: #fff;" />
-<div class="church-name">
-              <h1><em>destiny</em>chapel</h1>
-              <p>Activating Dreams to Transform Lives</p>
-            </div>
-          </div>
-          <div class="visitor-badge">Visitor Card</div>
+    <!-- SCRIPTURE -->
+    <div class="scripture">
+      "Now he who supplies seed to the sower and bread for food will also supply and increase your store of seed and will enlarge the harvest of your righteousness"
+      <b>— 2 Corinthians 9:10</b>
+    </div>
+
+    <!-- ══ STEP 1 ══ -->
+    <div class="body" id="s1">
+      <div class="sec-title"><i class="ti ti-user"></i> Personal Information</div>
+      <div class="grid">
+
+        <div class="field">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" id="fname" placeholder="First name" oninput="capFirst(this)"/>
+          <span class="err-msg" id="e-fname">Please enter your first name</span>
         </div>
+
+        <div class="field">
+          <label>Middle Name</label>
+          <input type="text" id="mname" placeholder="Middle name (optional)" oninput="capFirst(this)"/>
+        </div>
+
+        <div class="field full">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" id="lname" placeholder="Last / Family name" oninput="capFirst(this)"/>
+          <span class="err-msg" id="e-lname">Please enter your last name</span>
+        </div>
+
+        <div class="field">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="+254 7XX XXX XXX" oninput="numOnly(this)" maxlength="15"/>
+          <span class="err-msg" id="e-phone">Enter a valid phone number</span>
+        </div>
+
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="your@gmail.com"/>
+          <span class="err-msg" id="e-email">Must include @ and domain</span>
+        </div>
+
+        <div class="field">
+          <label>Date of Visit <span class="req">*</span></label>
+          <input type="date" id="vdate"/>
+          <span class="err-msg" id="e-vdate">Please select the visit date</span>
+        </div>
+
+        <div class="field">
+          <label>Age Range</label>
+          <select id="age">
+            <option value="">Select…</option>
+            <option>Under 18</option>
+            <option>18 – 25</option>
+            <option>26 – 35</option>
+            <option>36 – 45</option>
+            <option>46 – 60</option>
+            <option>60+</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Residential Area / Estate</label>
+          <input type="text" id="area" placeholder="e.g. Westlands, Nairobi" oninput="capFirst(this)"/>
+        </div>
+
       </div>
 
-      <!-- PROGRESS -->
-      <div class="progress-track">
-        <div class="progress-fill" id="pf" style="width:33%"></div>
-      </div>
-      <div class="step-dots">
-        <div class="dot active" id="d1"></div>
-        <div class="dot"        id="d2"></div>
-        <div class="dot"        id="d3"></div>
-      </div>
-
-      <!-- SCRIPTURE BAND -->
-      <div class="scripture">
-        "Now he who supplies seed to the sower and bread for food will also supply and increase your store of seed and will enlarge the harvest of your righteousness"
-        <b>— 2 Corinthians 9:10</b>
+      <div class="divider"></div>
+      <div class="sec-title"><i class="ti ti-map-pin"></i> How did you find us?</div>
+      <div class="how-grid" id="howG">
+        <div class="how-card" onclick="pickHow(this,'Friend / Family')"><i class="ti ti-users"></i><span>Friend / Family</span></div>
+        <div class="how-card" onclick="pickHow(this,'Social Media')"><i class="ti ti-brand-instagram"></i><span>Social Media</span></div>
+        <div class="how-card" onclick="pickHow(this,'Walk-in')"><i class="ti ti-walk"></i><span>Walk-in</span></div>
+        <div class="how-card" onclick="pickHow(this,'Online Search')"><i class="ti ti-search"></i><span>Online Search</span></div>
+        <div class="how-card" onclick="pickHow(this,'Event / Crusade')"><i class="ti ti-speakerphone"></i><span>Event / Crusade</span></div>
+        <div class="how-card" onclick="pickHow(this,'Other')"><i class="ti ti-dots-circle-horizontal"></i><span>Other</span></div>
       </div>
 
-      <!-- ══════ STEP 1 — PERSONAL INFO ══════ -->
-      <div class="body" id="s1">
-        <div class="sec-title">
-          <i class="ti ti-user" aria-hidden="true"></i> Personal Information
-        </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="toStep2()">Continue <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
 
-        <div class="grid">
-          <div class="field">
-            <label>First Name <span class="req">*</span></label>
-            <input type="text" id="fname" placeholder="e.g. John" oninput="capFirst(this)" autocomplete="given-name" />
-            <span class="err-msg" id="e-fname">First name is required</span>
-          </div>
+    <!-- ══ STEP 2 ══ -->
+    <div class="body" id="s2" style="display:none">
+      <div class="sec-title"><i class="ti ti-heart"></i> Your Faith Journey</div>
+      <div class="grid">
 
-          <div class="field">
-            <label>Middle Name</label>
-            <input type="text" id="mname" placeholder="Optional" oninput="capFirst(this)" autocomplete="additional-name" />
-          </div>
-
-          <div class="field full">
-            <label>Last / Family Name <span class="req">*</span></label>
-            <input type="text" id="lname" placeholder="e.g. Kamau" oninput="capFirst(this)" autocomplete="family-name" />
-            <span class="err-msg" id="e-lname">Last name is required</span>
-          </div>
-
-          <div class="field">
-            <label>Phone Number <span class="req">*</span></label>
-            <input type="tel" id="phone" placeholder="+254 7XX XXX XXX" oninput="numOnly(this)" maxlength="15" autocomplete="tel" inputmode="numeric" />
-            <span class="err-msg" id="e-phone">Enter a valid phone number</span>
-          </div>
-
-          <div class="field">
-            <label>Email Address <span class="req">*</span></label>
-            <input type="email" id="email" placeholder="you@gmail.com" autocomplete="email" />
-            <span class="err-msg" id="e-email">Must include @ symbol and domain</span>
-          </div>
-
-          <div class="field">
-            <label>Date of Visit <span class="req">*</span></label>
-            <input type="date" id="vdate" />
-          </div>
-
-          <div class="field">
-            <label>Age Range</label>
-            <select id="age">
-              <option value="">Select…</option>
-              <option>Under 18</option>
-              <option>18 – 25</option>
-              <option>26 – 35</option>
-              <option>36 – 45</option>
-              <option>46 – 60</option>
-              <option>60+</option>
-            </select>
-          </div>
-
-          <div class="field full">
-            <label>Residential Area / Estate</label>
-            <input type="text" id="area" placeholder="e.g. Westlands, Nairobi" oninput="capFirst(this)" />
+        <div class="field full">
+          <label>Are you born again?</label>
+          <div class="radio-row">
+            <label class="rlabel"><input type="radio" name="ba" value="Yes"/> Yes, I am</label>
+            <label class="rlabel"><input type="radio" name="ba" value="Not yet"/> Not yet</label>
+            <label class="rlabel"><input type="radio" name="ba" value="Not sure"/> Not sure</label>
           </div>
         </div>
 
-        <div class="divider"></div>
-
-        <div class="sec-title">
-          <i class="ti ti-map-pin" aria-hidden="true"></i> How did you find us?
-        </div>
-        <div class="how-grid" id="howG">
-          <div class="how-card" onclick="pickHow(this,'Friend / Family')">
-            <i class="ti ti-users" aria-hidden="true"></i><span>Friend / Family</span>
-          </div>
-          <div class="how-card" onclick="pickHow(this,'Social Media')">
-            <i class="ti ti-brand-instagram" aria-hidden="true"></i><span>Social Media</span>
-          </div>
-          <div class="how-card" onclick="pickHow(this,'Walk-in')">
-            <i class="ti ti-walk" aria-hidden="true"></i><span>Walk-in</span>
-          </div>
-          <div class="how-card" onclick="pickHow(this,'Online Search')">
-            <i class="ti ti-search" aria-hidden="true"></i><span>Online Search</span>
-          </div>
-          <div class="how-card" onclick="pickHow(this,'Event / Crusade')">
-            <i class="ti ti-speakerphone" aria-hidden="true"></i><span>Event / Crusade</span>
-          </div>
-          <div class="how-card" onclick="pickHow(this,'Other')">
-            <i class="ti ti-dots-circle-horizontal" aria-hidden="true"></i><span>Other</span>
+        <div class="field full">
+          <label>Do you have a home church?</label>
+          <div class="radio-row">
+            <label class="rlabel"><input type="radio" name="hc" value="Yes"/> Yes, I do</label>
+            <label class="rlabel"><input type="radio" name="hc" value="No — looking for one"/> No, looking for one</label>
           </div>
         </div>
 
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="toStep2()">
-            Continue <i class="ti ti-arrow-right" aria-hidden="true"></i>
-          </button>
+        <div class="field full">
+          <label>Would you like to be contacted by our team?</label>
+          <div class="radio-row">
+            <label class="rlabel"><input type="radio" name="ct" value="Yes please"/> Yes please</label>
+            <label class="rlabel"><input type="radio" name="ct" value="Not right now"/> Not right now</label>
+          </div>
         </div>
+
+        <div class="field full">
+          <label>Prayer Request (optional)</label>
+          <textarea id="prayer" placeholder="Share anything you'd like us to pray with you about…"></textarea>
+        </div>
+
       </div>
 
-      <!-- ══════ STEP 2 — FAITH + TAKEAWAY ══════ -->
-      <div class="body" id="s2" style="display:none">
-        <div class="sec-title">
-          <i class="ti ti-heart" aria-hidden="true"></i> Your Faith Journey
-        </div>
-
-        <div class="grid">
-          <div class="field full">
-            <label>Are you born again?</label>
-            <div class="radio-row">
-              <label class="rlabel"><input type="radio" name="ba" value="Yes, I am" /> Yes, I am</label>
-              <label class="rlabel"><input type="radio" name="ba" value="Not yet" /> Not yet</label>
-              <label class="rlabel"><input type="radio" name="ba" value="Not sure" /> Not sure</label>
-            </div>
-          </div>
-
-          <div class="field full">
-            <label>Do you have a home church?</label>
-            <div class="radio-row">
-              <label class="rlabel"><input type="radio" name="hc" value="Yes, I do" /> Yes, I do</label>
-              <label class="rlabel"><input type="radio" name="hc" value="No — looking for one" /> No, looking for one</label>
-            </div>
-          </div>
-
-          <div class="field full">
-            <label>Would you like our team to reach out to you?</label>
-            <div class="radio-row">
-              <label class="rlabel"><input type="radio" name="ct" value="Yes please" /> Yes please</label>
-              <label class="rlabel"><input type="radio" name="ct" value="Not right now" /> Not right now</label>
-            </div>
-          </div>
-
-          <div class="field full">
-            <label>Prayer Request <span style="font-size:10px;color:#bbb;font-weight:400;text-transform:none;">(optional)</span></label>
-            <textarea id="prayer" placeholder="Share anything you'd like us to pray about with you…"></textarea>
-          </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- MEMORABLE TAKE-AWAY -->
-        <div class="sec-title">
-          <i class="ti ti-star" aria-hidden="true"></i> Memorable Take-Away
-        </div>
-        <div class="takeaway-wrap">
-          <span class="takeaway-icon">✨</span>
-          <div class="field">
-            <label>Your First Experience at Destiny Chapel <span class="req">*</span></label>
-            <textarea
-              id="takeaway"
-              placeholder="What stood out to you today? A word, a song, a feeling — anything that made an impression on you during your first visit…"
-              style="height:110px"
-            ></textarea>
-            <span class="err-msg" id="e-take">Please share your experience — it means a lot to us!</span>
-          </div>
-        </div>
-
-        <div class="btn-row">
-          <button class="btn btn-back" onclick="toStep1()" title="Go back" aria-label="Go back">
-            <i class="ti ti-arrow-left" aria-hidden="true"></i>
-          </button>
-          <button class="btn btn-primary" onclick="toStep3()">
-            Preview &amp; Send <i class="ti ti-send" aria-hidden="true"></i>
-          </button>
-        </div>
+      <div class="divider"></div>
+      <div class="sec-title"><i class="ti ti-star"></i> Memorable Take-Away ✨</div>
+      <div class="field">
+        <label>Your First Experience at Destiny Chapel <span class="req">*</span></label>
+        <textarea id="takeaway" placeholder="What stood out to you today? What did you feel, learn, or experience during your visit?" style="height:100px"></textarea>
+        <span class="err-msg" id="e-take">Please share your experience — it means a lot to us!</span>
       </div>
 
-      <!-- ══════ STEP 3 — PREVIEW + WHATSAPP ══════ -->
-      <div class="success" id="s3">
-        <div class="success-ring">🙏</div>
-        <h2>Welcome to the Family!</h2>
-        <p>
-          Your visitor card is complete. Review your details below, then tap
-          <strong>Send via WhatsApp</strong> — our admin will add you to the
-          Destiny Chapel community group.
-        </p>
+      <div class="btn-row">
+        <button class="btn btn-back" onclick="toStep1()" title="Back"><i class="ti ti-arrow-left"></i></button>
+        <button class="btn btn-primary" onclick="toStep3()">Preview &amp; Send <i class="ti ti-send"></i></button>
+      </div>
+    </div>
 
-        <!-- DATA PREVIEW -->
-        <div class="preview-box" id="previewBox"></div>
+    <!-- ══ STEP 3 — CONFIRM ══ -->
+    <div class="success" id="s3">
+      <div class="success-ring">🙏</div>
+      <h2>Welcome to the Family!</h2>
+      <p>Your visitor card has been saved. Tap below to also send your details to our admin via WhatsApp so they can add you to our community group.</p>
 
-        <button class="btn-wa" onclick="sendWA()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-          Send via WhatsApp
+      <div class="preview-box" id="preview"></div>
+
+      <div class="saving-badge" id="savingBadge">
+        <i class="ti ti-loader spin"></i> Saving to our records…
+      </div>
+
+      <button class="btn-wa" id="waBtn" onclick="sendWA()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Send via WhatsApp
+      </button>
+      <p style="margin-top:10px;font-size:12px;color:#bbb;">The admin will add you to the Destiny Chapel family group after receiving your message 🙏</p>
+
+      <div class="btn-row" style="margin-top:1rem;flex-direction:column;">
+        <button class="btn btn-primary" style="width:100%;" onclick="resetForm()">
+          <i class="ti ti-user-plus"></i> Register Another Visitor
         </button>
-        <p style="margin-top:10px;font-size:12px;color:#bbb;">
-          After sending, the admin will add you to the Destiny Chapel family group 🙏
-        </p>
-
-        <div class="btn-row" style="margin-top:1rem;">
-          <button class="btn btn-back" style="flex:1" onclick="toStep2()">
-            <i class="ti ti-arrow-left" aria-hidden="true"></i> Edit my responses
-          </button>
-        </div>
-      </div>
-
-      <!-- CARD FOOTER -->
-      <div class="card-footer">
-        <div class="ft-contacts">
-          <div class="ft-item"><i class="ti ti-phone" aria-hidden="true"></i> 0716153771</div>
-          <div class="ft-item"><i class="ti ti-mail" aria-hidden="true"></i> info@destinychapel.co.ke</div>
-          <div class="ft-item"><i class="ti ti-map-pin" aria-hidden="true"></i> P.O Box 75646-00200, Nairobi</div>
-        </div>
-        <div class="ft-socials">
-          <a href="https://facebook.com/DestinyChapel" target="_blank" title="Facebook"><i class="ti ti-brand-facebook" aria-hidden="true"></i></a>
-          <a href="https://youtube.com/@DestinyChapel" target="_blank" title="YouTube"><i class="ti ti-brand-youtube" aria-hidden="true"></i></a>
-          <a href="https://instagram.com/destiny.chapel" target="_blank" title="Instagram"><i class="ti ti-brand-instagram" aria-hidden="true"></i></a>
-          <a href="https://tiktok.com/@destiny.chapel" target="_blank" title="TikTok"><i class="ti ti-brand-tiktok" aria-hidden="true"></i></a>
-        </div>
+        <button class="btn btn-back" onclick="sheetSaved=false;toStep2();" style="flex:unset;width:100%;gap:8px;">
+          <i class="ti ti-arrow-left"></i> Edit my responses
+        </button>
       </div>
     </div>
-    <!-- /card -->
 
-    <!-- BELOW CARD NOTE -->
-    <div class="below-card">
-      <div class="cross">✝</div>
-      <p>Activating Dreams · Transforming Lives · Nairobi, Kenya</p>
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="ft-contacts">
+        <div class="ft-item"><i class="ti ti-phone"></i> 0716153771</div>
+        <div class="ft-item"><i class="ti ti-mail"></i> info@destinychapel.co.ke</div>
+        <div class="ft-item"><i class="ti ti-map-pin"></i> P.O Box 75646-00200, Nairobi</div>
+      </div>
+      <div class="ft-socials">
+        <a href="#" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#" title="YouTube"><i class="ti ti-brand-youtube"></i></a>
+        <a href="#" title="Instagram"><i class="ti ti-brand-instagram"></i></a>
+        <a href="#" title="TikTok"><i class="ti ti-brand-tiktok"></i></a>
+      </div>
     </div>
 
-  </div><!-- /page -->
+  </div><!-- /card -->
+</div><!-- /page -->
 
-  <script>
-    // ── Helpers ──────────────────────────────────────────
-    var howVal = '';
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
-    document.getElementById('vdate').valueAsDate = new Date();
+<script>
+// ── CONFIG ── replace with your deployed Apps Script URL
+var SHEET_URL = "https://script.google.com/macros/s/AKfycbwLXdNVyni4v7BNi_ceyGHmy9VOGi_vA5hw5clt2WKDyfLviAQlR8WZYmzT_AUkPWez/exec";
 
-    function capFirst(el) {
-      el.value = el.value.replace(/\b\w/g, function(c) { return c.toUpperCase(); });
-    }
+var howVal = '';
+var sheetSaved = false;
 
-    function numOnly(el) {
-      el.value = el.value.replace(/[^0-9+\-\s]/g, '');
-    }
+// Set today
+document.getElementById('vdate').valueAsDate = new Date();
 
-    function pickHow(el, val) {
-      document.querySelectorAll('.how-card').forEach(function(c) { c.classList.remove('sel'); });
-      el.classList.add('sel');
-      howVal = val;
-    }
+// Particles
+(function(){
+  var p = document.getElementById('particles');
+  for(var i=0;i<18;i++){
+    var s = document.createElement('span');
+    s.style.cssText='left:'+(Math.random()*100)+'%;bottom:0;width:'+(2+Math.random()*3)+'px;height:'+(2+Math.random()*3)+'px;animation-duration:'+(4+Math.random()*6)+'s;animation-delay:'+(Math.random()*5)+'s;';
+    p.appendChild(s);
+  }
+})();
 
-    function v(id)    { return document.getElementById(id).value.trim(); }
-    function r(name)  { var el = document.querySelector('input[name="'+name+'"]:checked'); return el ? el.value : '—'; }
+function capFirst(el){el.value=el.value.replace(/\b\w/g,function(c){return c.toUpperCase();});}
+function numOnly(el){el.value=el.value.replace(/[^0-9+\-\s]/g,'');}
+function pickHow(el,val){document.querySelectorAll('.how-card').forEach(function(c){c.classList.remove('sel');});el.classList.add('sel');howVal=val;}
 
-    function markErr(inputId, errId, bad) {
-      var inp = document.getElementById(inputId);
-      var msg = document.getElementById(errId);
-      if (inp) { if (bad) inp.classList.add('err'); else inp.classList.remove('err'); }
-      if (msg) { if (bad) msg.classList.add('show'); else msg.classList.remove('show'); }
-    }
+function showErr(id,show){var e=document.getElementById(id);if(e){e.classList[show?'add':'remove']('show');}}
+function markErr(id,bad){var e=document.getElementById(id);if(e){e.classList[bad?'add':'remove']('err');}}
 
-    // ── Step navigation ───────────────────────────────────
-    function setStep(n) {
-      document.getElementById('s1').style.display = n === 1 ? 'block' : 'none';
-      document.getElementById('s2').style.display = n === 2 ? 'block' : 'none';
-      document.getElementById('s3').style.display = n === 3 ? 'block' : 'none';
-      ['d1','d2','d3'].forEach(function(id, i) {
-        document.getElementById(id).classList.toggle('active', i + 1 === n);
-      });
-      document.getElementById('pf').style.width = n === 1 ? '33%' : n === 2 ? '66%' : '100%';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+function setStep(n){
+  document.getElementById('s1').style.display=n===1?'block':'none';
+  document.getElementById('s2').style.display=n===2?'block':'none';
+  document.getElementById('s3').style.display=n===3?'block':'none';
+  ['d1','d2','d3'].forEach(function(id,i){document.getElementById(id).classList.toggle('active',i+1===n);});
+  document.getElementById('pf').style.width=n===1?'33%':n===2?'66%':'100%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
-    function toStep1() { setStep(1); }
+function toStep1(){setStep(1);}
+function toStep2(){
+  var fn=document.getElementById('fname').value.trim();
+  var ln=document.getElementById('lname').value.trim();
+  var ph=document.getElementById('phone').value.trim();
+  var em=document.getElementById('email').value.trim();
+  var vd=document.getElementById('vdate').value;
+  var ok=true;
+  markErr('fname',!fn);showErr('e-fname',!fn);if(!fn)ok=false;
+  markErr('lname',!ln);showErr('e-lname',!ln);if(!ln)ok=false;
+  var phOk=ph.length>=9&&/[0-9]/.test(ph);
+  markErr('phone',!phOk);showErr('e-phone',!phOk);if(!phOk)ok=false;
+  var emOk=em.includes('@')&&em.includes('.')&&em.length>5;
+  markErr('email',!emOk);showErr('e-email',!emOk);if(!emOk)ok=false;
+  markErr('vdate',!vd);showErr('e-vdate',!vd);if(!vd)ok=false;
+  if(ok)setStep(2);
+}
 
-    function toStep2() {
-      var fn   = v('fname');
-      var ln   = v('lname');
-      var ph   = v('phone');
-      var em   = v('email');
-      var ok   = true;
+function v(id){return document.getElementById(id).value.trim();}
+function r(name){var el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:'Not answered';}
 
-      var fnBad = !fn;
-      var lnBad = !ln;
-      var phBad = ph.length < 9 || !/[0-9]/.test(ph);
-      var emBad = !em.includes('@') || !em.includes('.') || em.length < 6;
+function toStep3(){
+  var ta=v('takeaway');
+  if(!ta){markErr('takeaway',true);showErr('e-take',true);return;}
+  markErr('takeaway',false);showErr('e-take',false);
+  buildPreview();
+  setStep(3);
+  if(!sheetSaved) saveToSheet();
+}
 
-      markErr('fname', 'e-fname', fnBad); if (fnBad) ok = false;
-      markErr('lname', 'e-lname', lnBad); if (lnBad) ok = false;
-      markErr('phone', 'e-phone', phBad); if (phBad) ok = false;
-      markErr('email', 'e-email', emBad); if (emBad) ok = false;
+function buildPreview(){
+  var fn=v('fname'),mn=v('mname')?(' '+v('mname')):'',ln=v('lname');
+  var full=fn+mn+' '+ln;
+  document.getElementById('preview').innerHTML=[
+    '<b>👤 Full Name:</b> '+full,
+    '<b>📞 Phone:</b> '+v('phone'),
+    '<b>📧 Email:</b> '+v('email'),
+    '<b>📍 Area:</b> '+(v('area')||'—'),
+    '<b>🎂 Age Range:</b> '+(v('age')||'—'),
+    '<b>📅 Visit Date:</b> '+v('vdate'),
+    '<b>🔍 How They Found Us:</b> '+(howVal||'—'),
+    '<span style="color:#ddd">──────────────</span>',
+    '<b>✝️ Born Again:</b> '+r('ba'),
+    '<b>🏠 Home Church:</b> '+r('hc'),
+    '<b>📲 Contact Request:</b> '+r('ct'),
+    '<b>🙏 Prayer Request:</b> '+(v('prayer')||'None'),
+    '<span style="color:#ddd">──────────────</span>',
+    '<b>⭐ First Experience:</b> '+v('takeaway'),
+  ].join('<br>');
+}
 
-      if (ok) setStep(2);
-    }
+function getData(){
+  var fn=v('fname'),mn=v('mname'),ln=v('lname');
+  return{
+    firstName:fn,middleName:mn,lastName:ln,
+    phone:v('phone'),email:v('email'),
+    area:v('area'),ageRange:v('age'),
+    visitDate:v('vdate'),howFound:howVal,
+    bornAgain:r('ba'),homeChurch:r('hc'),
+    wantsContact:r('ct'),prayerRequest:v('prayer'),
+    firstExperience:v('takeaway')
+  };
+}
 
-    function toStep3() {
-      var ta = v('takeaway');
-      markErr('takeaway', 'e-take', !ta);
-      if (!ta) return;
-      buildPreview();
-      setStep(3);
-    }
+function toast(msg,type,icon){
+  var t=document.getElementById('toast');
+  t.innerHTML='<i class="ti ti-'+icon+'"></i> '+msg;
+  t.className='toast '+type+' show';
+  setTimeout(function(){t.className='toast';},4000);
+}
 
-    // ── Preview builder ───────────────────────────────────
-    function buildPreview() {
-      var fn   = v('fname');
-      var mn   = v('mname') ? ' ' + v('mname') : '';
-      var ln   = v('lname');
-      var full = fn + mn + ' ' + ln;
+function saveToSheet(){
+  if(SHEET_URL==='YOUR_APPS_SCRIPT_URL_HERE'){
+    // Dev mode — skip silently
+    sheetSaved=true;
+    return;
+  }
+  var badge=document.getElementById('savingBadge');
+  badge.classList.add('show');
 
-      var rows = [
-        { section: '📋 Personal Details' },
-        { label: 'Full Name',       val: full },
-        { label: 'Phone',           val: v('phone') },
-        { label: 'Email',           val: v('email') },
-        { label: 'Area / Estate',   val: v('area') || '—' },
-        { label: 'Age Range',       val: v('age')  || '—' },
-        { label: 'Date of Visit',   val: v('vdate') },
-        { label: 'How Found Us',    val: howVal || '—' },
-        { divider: true },
-        { section: '✝️ Faith Journey' },
-        { label: 'Born Again',      val: r('ba') },
-        { label: 'Home Church',     val: r('hc') },
-        { label: 'Wants Contact',   val: r('ct') },
-        { label: 'Prayer Request',  val: v('prayer') || 'None' },
-        { divider: true },
-        { section: '⭐ First Experience' },
-        { label: 'Take-Away',       val: v('takeaway') },
-      ];
+  fetch(SHEET_URL,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify(getData())
+  })
+  .then(function(){
+    sheetSaved=true;
+    badge.classList.remove('show');
+    toast('Details saved to our records ✓','success','circle-check');
+  })
+  .catch(function(){
+    badge.classList.remove('show');
+    toast('Could not save — please check connection','error','alert-circle');
+  });
+}
 
-      var html = '';
-      rows.forEach(function(row) {
-        if (row.section) {
-          html += '<div class="preview-section">'+row.section+'</div>';
-        } else if (row.divider) {
-          html += '<div class="preview-divider"></div>';
-        } else {
-          html += '<div class="prow"><span class="plabel">'+row.label+'</span><span class="pval">'+row.val+'</span></div>';
-        }
-      });
-      document.getElementById('previewBox').innerHTML = html;
-    }
+function sendWA(){
+  var d=getData();
+  var full=[d.firstName,d.middleName,d.lastName].filter(Boolean).join(' ');
+  var msg=
+'🙏 *DESTINY CHAPEL — VISITOR CARD*\n'+
+'━━━━━━━━━━━━━━━━━━━━━━\n\n'+
+'*📋 PERSONAL DETAILS*\n'+
+'👤 Full Name     : '+full+'\n'+
+'📞 Phone         : '+d.phone+'\n'+
+'📧 Email         : '+d.email+'\n'+
+'📍 Area / Estate : '+(d.area||'—')+'\n'+
+'🎂 Age Range     : '+(d.ageRange||'—')+'\n'+
+'📅 Date of Visit : '+d.visitDate+'\n'+
+'🔍 How Found Us  : '+(d.howFound||'—')+'\n\n'+
+'━━━━━━━━━━━━━━━━━━━━━━\n'+
+'*✝️ FAITH JOURNEY*\n'+
+'Born Again            : '+d.bornAgain+'\n'+
+'Has Home Church       : '+d.homeChurch+'\n'+
+'Wants to be Contacted : '+d.wantsContact+'\n'+
+'Prayer Request        : '+(d.prayerRequest||'None')+'\n\n'+
+'━━━━━━━━━━━━━━━━━━━━━━\n'+
+'*⭐ FIRST EXPERIENCE*\n'+
+d.firstExperience+'\n\n'+
+'━━━━━━━━━━━━━━━━━━━━━━\n'+
+'_Sent via Destiny Chapel Digital Visitor Card_ 📋';
 
-    // ── WhatsApp send ─────────────────────────────────────
-    function sendWA() {
-      var fn   = v('fname');
-      var mn   = v('mname') ? ' ' + v('mname') : '';
-      var ln   = v('lname');
-      var full = fn + mn + ' ' + ln;
+  window.open('https://wa.me/254716153771?text='+encodeURIComponent(msg),'_blank');
+}
 
-      var msg =
-'🙏 *DESTINY CHAPEL — VISITOR CARD*\n' +
-'━━━━━━━━━━━━━━━━━━━━━━━━\n\n' +
-'📋 *PERSONAL DETAILS*\n' +
-'👤 Full Name:       ' + full + '\n' +
-'📞 Phone:           ' + v('phone') + '\n' +
-'📧 Email:           ' + v('email') + '\n' +
-'📍 Area / Estate:   ' + (v('area') || '—') + '\n' +
-'🎂 Age Range:       ' + (v('age') || '—') + '\n' +
-'📅 Date of Visit:   ' + v('vdate') + '\n' +
-'🔍 How Found Us:    ' + (howVal || '—') + '\n\n' +
-'━━━━━━━━━━━━━━━━━━━━━━━━\n' +
-'✝️ *FAITH JOURNEY*\n' +
-'🕊️ Born Again:      ' + r('ba') + '\n' +
-'🏠 Home Church:     ' + r('hc') + '\n' +
-'📲 Wants Contact:   ' + r('ct') + '\n' +
-'🙏 Prayer Request:\n' + (v('prayer') || 'None') + '\n\n' +
-'━━━━━━━━━━━━━━━━━━━━━━━━\n' +
-'⭐ *FIRST EXPERIENCE*\n' + v('takeaway') + '\n\n' +
-'━━━━━━━━━━━━━━━━━━━━━━━━\n' +
-'_Sent via Destiny Chapel Digital Visitor Card_ 📋\n' +
-'_destinychapel.co.ke_';
+function resetForm(){
+  // Clear step 1 text inputs
+  ['fname','mname','lname','phone','email','area'].forEach(function(id){
+    document.getElementById(id).value='';
+  });
+  document.getElementById('age').value='';
+  document.getElementById('vdate').valueAsDate=new Date();
 
-      var admin = '254716153771';
-      window.open('https://wa.me/' + admin + '?text=' + encodeURIComponent(msg), '_blank');
-    }
-  </script>
+  // Clear step 2 fields
+  document.getElementById('prayer').value='';
+  document.getElementById('takeaway').value='';
+  document.querySelectorAll('input[type=radio]').forEach(function(rd){rd.checked=false;});
+
+  // Clear "how did you find us" selection
+  document.querySelectorAll('.how-card').forEach(function(c){c.classList.remove('sel');});
+  howVal='';
+
+  // Clear all error states
+  document.querySelectorAll('.err').forEach(function(e){e.classList.remove('err');});
+  document.querySelectorAll('.err-msg.show').forEach(function(e){e.classList.remove('show');});
+
+  // Reset save flag so the next visitor's data actually gets sent
+  sheetSaved=false;
+
+  setStep(1);
+}
+</script>
 </body>
 </html>
